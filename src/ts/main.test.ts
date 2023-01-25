@@ -1,16 +1,11 @@
-// Function createNewTodo
+import { createNewTodo, createHtml, toggleTodo, displayError, clearTodos } from "./main";
 
+/*******| Function createNewTodo |*******/ 
 
-// Function createHtml
+/*******| Function createHtml |*******/ 
 
+/*******| Function toggleTodo |*******/ 
 
+/*******| Function displayError |*******/ 
 
-// Function toggleTodo
-
-
-
-// Function displayError
-
-
-
-// Function clearTodos
+/*******| Function clearTodos |*******/ 
