@@ -7,14 +7,15 @@ import { Todo } from "../ts/models/Todo";
 
 /********* Function addTodo *******/
 test('should add a new todo to todolist ', () => {
-    let text = "Hello";
+    // arrange
+    let todotext = "Hello";
     let todos: Todo[] = [
         {text: 'World', done: true},
     ];
-    let result = text + todos;
-
-    addTodo(text, todos);
-
+    let result = todotext + todos;
+    // act
+    addTodo(todotext, todos);
+    // assert
     expect(result.length).toBeGreaterThanOrEqual(3);
 
 });
