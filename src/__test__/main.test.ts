@@ -1,3 +1,7 @@
+/**
+ * @ jest-environment jsdom
+ */
+
 import { createHtml, createNewTodo, toggleTodo } from "../ts/main";
 import { Todo } from "../ts/models/Todo";
 
