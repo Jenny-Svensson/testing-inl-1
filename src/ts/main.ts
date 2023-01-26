@@ -27,7 +27,7 @@ export function createNewTodo(todoText: string, todos: Todo[]) {
   if (result.success) {
     createHtml(todos);
   } else {
-    displayError(result.error, true);
+    exports.displayError(result.error, true);
   }
 }
 
@@ -59,7 +59,7 @@ export function createHtml(todos: Todo[]) {
 
 export function toggleTodo(todo: Todo) {
   changeTodo(todo);
-  createHtml(todos);
+  exports.createHtml(todos);
 }
 
 export function displayError(error: string, show: boolean) {
@@ -78,7 +78,7 @@ export function displayError(error: string, show: boolean) {
 
 export function clearTodos(todos: Todo[]) {
   removeAllTodos(todos);
-  createHtml(todos);
+  exports.createHtml(todos);
 }
 
 //createHtml(todos);
