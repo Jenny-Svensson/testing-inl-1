@@ -74,6 +74,24 @@ test('should create Html ', () => {
     expect(document.getElementById('todos')?.outerHTML).toEqual(todosContain);
 });
 
+test('should trigger toggleTodo if -li- is clicked', () => {
+    //Arrange
+    document.body.innerHTML = `
+    <ul id="todos" class="todo"> 
+    <li class="todo"></li>
+    </ul>
+    `;
+    const spyToggleToDo = jest.spyOn(main, "toggleTodo");
+    createHtml([new Todo('Hello world', true)]);
+
+    // Act
+    document.querySelector('li')?.click();
+
+    // Assert
+    expect(spyToggleToDo).toHaveBeenCalled();
+    spyToggleToDo.mockRestore();
+});
+
 
 /*########################################
 ||           toggleToDo()               ||
