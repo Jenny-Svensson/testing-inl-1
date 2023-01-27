@@ -7,21 +7,21 @@ import { Todo } from "../ts/models/Todo";
 import * as main from '../ts/main';
 import * as functions from '../ts/functions';
 
-/***********************************************
-*************Function createNewTodo*************
-************************************************/
+
+/*########################################
+||          createNewTodo()             ||
+########################################*/
 
 test('should createHtml if result is success ', () => {
     // Arrange
     document.body.innerHTML = `
     <ul id="todos" class="todo"></ul>
     `;
-    let todos: Todo[] = [
-        {text: 'World', done: true},
-    ];
+    let todoText = "Hello World";
+    let todos: Todo[] = [];
 
     // Act
-    createNewTodo('Test', todos);
+    createNewTodo(todoText, todos);
 
     // Assert
     let result = document.getElementById('todos');
@@ -30,51 +30,72 @@ test('should createHtml if result is success ', () => {
 });
 
 
-/*
-test('should displayError if result is not success ', () => {
+test('should not createHtml if result is NOT success', () => {
     // Arrange
-    document.body.innerHTML = `
-    <ul id="todos" class="todo"></ul>
-    `;
-    let todos: Todo[] = [
-        {text: '', done: false},
-    ];
+    document.body.innerHTML = 
+    '<div id="error" class="error"></div>' 
+    + 
+    '<ul id="todos" class="todo"></ul>';
+    let todoText = "JS";
+    let todos: Todo[] = [];
 
-    // Act
-    createNewTodo('', todos);
+    //Act
+    createNewTodo(todoText, todos);
 
     // Assert
-    let result = document.getElementById('todos');
-    expect(result).toBeNull();
-    expect(result?.innerHTML).toBe(""); 
+    expect(document.getElementById('error')?.classList.contains('show')).toBeTruthy();
 
 });
- */
-/***********************************************
-***************Function createHTML**************
-************************************************/
+
+/*########################################
+||            createHtml()              ||
+########################################*/
+
+test('should create Html ', () => {
+    //Arrange
+    document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
+    const todos: Todo[] = [
+        {text: "Hello World 1", done: true},
+        {text: "Hello World 2", done: true},
+        {text: "Hello World 3", done: false}
+    ];
+
+    const todosContain = 
+    '<ul id="todos" class="todo">' +
+    '<li class="todo__text--done todo__text">Hello World 1</li>' +
+    '<li class="todo__text--done todo__text">Hello World 2</li>' +
+    '<li class="todo__text">Hello World 3</li>' +
+    '</ul>';
+
+    //Act
+    createHtml(todos);
+
+    // Assert
+    expect(document.getElementById('todos')?.outerHTML).toEqual(todosContain);
+});
 
 
-/***********************************************
-**************Function toggleToDo***************
-************************************************/
+/*########################################
+||           toggleToDo()               ||
+########################################*/
+
 test('should toggle between changeTodo and createHtml ', () => {
+    // Arrange
     let spyOnchangeToDo = jest.spyOn(functions, "changeTodo").mockReturnValue(); 
     let spyOncreateHtml = jest.spyOn(main, "createHtml").mockReturnValue(); 
 
-    let t = new Todo("Test", true); 
-    
-    toggleTodo(t);
-
+    // Act
+    let newTodo = new Todo("Test", true); 
+    toggleTodo(newTodo);
 
     // Assert
     expect(spyOncreateHtml).toBeCalled(); 
     expect(spyOnchangeToDo).toBeCalled(); 
 });
 
-/**************************************** *******
-*************Function displayError**************
-************************************************/
+/*########################################
+||          displayError()              ||
+########################################*/
 test('should add class "show" if its text is more than or equal 3 letters ', () => {
     // Arrange
     let errorText = 'An error has occured'
@@ -101,9 +122,9 @@ test('should remove class "show" if its text is less than 3 letters ', () => {
     expect(result).toBe(errorText);
 });
 
-/***********************************************
-**************Function clearTodos***************
-************************************************/
+/*########################################
+||            clearTodos()              ||
+########################################*/
 
 test('should go thru removeAllTodos and createHtml ', () => {
     // Arrange
@@ -120,12 +141,3 @@ test('should go thru removeAllTodos and createHtml ', () => {
     expect(spyOncreateHtml).toBeCalled(); 
     expect(spyOnremoveAllTodos).toBeCalled(); 
 });
-
-
-/************* NOTES in swedish *************/
-
-// Arrange - skapa förutsättningar för att kunna anropa vår funktion
-// Act - Anropar funktionen som skall testas
-// Assert - Kontroll av förändrade värden
-
-// mockResultValue = resultat av anropet som görs, ska bli inget. koden kmr inte köras i vår funktion. den abryts 
