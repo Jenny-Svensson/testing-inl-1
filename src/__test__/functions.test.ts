@@ -24,11 +24,7 @@ test ('should sort todos', () => {
         {text: 'snorlax', done: false},
     ];
 
-    expect(todos[0].text).toEqual('ash');
-    expect(todos[1].text).toEqual('charmander');
-    expect(todos[2].text).toEqual('misty');
-    expect(todos[3].text).toEqual('pikachu');
-    expect(todos[4].text).toEqual('snorlax');
+    expect(todos).toStrictEqual(result);
 });
 
 /********* Function addTodo *******/
