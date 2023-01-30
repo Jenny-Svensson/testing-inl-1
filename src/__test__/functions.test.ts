@@ -1,9 +1,35 @@
-import { addTodo, changeTodo, removeAllTodos } from "../ts/functions";
+import { addTodo, changeTodo, removeAllTodos, sortToDo } from "../ts/functions";
 import { Todo } from "../ts/models/Todo";
 
-// Arrange - skapa förutsättningar för att kunna anropa vår funktion
-// Act - Anropar funktionen som skall testas
-// Assert - Kontroll av förändrade värden
+/********* Function sortTodo *******/
+test ('should sort todos', () => {
+    // Arrange
+    let todos: Todo [] = [
+        {text: 'pikachu', done: false},
+        {text: 'snorlax', done: false},
+        {text: 'charmander', done: false},
+        {text: 'ash', done: false},
+        {text: 'misty', done: false},
+    ];
+
+    // Act
+    sortToDo(todos);
+
+    // Assert
+    let result = [
+        {text: 'ash', done: false},
+        {text: 'charmander', done: false},
+        {text: 'misty', done: false},
+        {text: 'pikachu', done: false},
+        {text: 'snorlax', done: false},
+    ];
+
+    expect(todos[0].text).toEqual('ash');
+    expect(todos[1].text).toEqual('charmander');
+    expect(todos[2].text).toEqual('misty');
+    expect(todos[3].text).toEqual('pikachu');
+    expect(todos[4].text).toEqual('snorlax');
+});
 
 /********* Function addTodo *******/
 test('should add a new todo to todolist ', () => {

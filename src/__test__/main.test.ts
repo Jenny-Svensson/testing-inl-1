@@ -2,7 +2,7 @@
 * @jest-environment jsdom
 */
 
-import { createHtml, createNewTodo, toggleTodo, displayError, clearTodos } from "../ts/main";
+import { createHtml, createNewTodo, toggleTodo, displayError, clearTodos, init } from "../ts/main";
 import { Todo } from "../ts/models/Todo";
 import * as main from '../ts/main';
 import * as functions from '../ts/functions';
@@ -158,4 +158,35 @@ test('should go thru removeAllTodos and createHtml ', () => {
     // Assert
     expect(spyOncreateHtml).toBeCalled(); 
     expect(spyOnremoveAllTodos).toBeCalled(); 
+});
+
+test('should clear todos when button clicked', () => {
+    // Arrange
+    document.body.innerHTML = '<button type="button" id="clearTodos">Rensa lista</button>';
+    const spyOnClearTodos = jest.spyOn(main, "clearTodos").mockReturnValue();
+
+    //Act
+    main.cleartodoBtn();
+
+    // Assert
+    let clearTodoBtn = document.getElementById('clearTodos') as HTMLButtonElement;
+    clearTodoBtn.click();
+    
+    expect(spyOnClearTodos).toHaveBeenCalled();
+});
+
+/*########################################
+||               init()                 ||
+########################################*/
+
+test('should call sortTodo and createHtml ', () => {
+    // Arrange
+    let spyOnSortTodo = jest.spyOn(functions, "sortToDo").mockReturnValue();
+    let spyOncreateHtml = jest.spyOn(main, "createHtml").mockReturnValue();
+
+    //Act
+    init();
+
+    expect(spyOnSortTodo).toBeCalled();
+    expect(spyOncreateHtml).toBeCalled();
 });

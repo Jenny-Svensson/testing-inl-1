@@ -5,17 +5,19 @@ let sortBtn = document.querySelector('.sortNameBtn') as HTMLButtonElement | null
 
 sortBtn?.addEventListener('click', init);
 
-export function init() {
+  export function init() {
   sortToDo(todos);
   exports.createHtml(todos);
 };
 
-
 let todos: Todo[] = JSON.parse(localStorage.getItem("todos") || "[]");
 
-document.getElementById("clearTodos")?.addEventListener("click", () => {
-  clearTodos(todos);
-});
+export function cleartodoBtn()   {
+  document.getElementById("clearTodos")?.addEventListener("click", () => {
+    
+    exports.clearTodos(todos);
+  });
+}
 
 (document.getElementById("newTodoForm") as HTMLFormElement)?.addEventListener(
   "submit",
